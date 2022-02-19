@@ -7,7 +7,7 @@
 
 import pygame
 
-WIDTH, HEIGHT = 800, 800
+WIDTH, HEIGHT = 600, 600
 ROWS, COLS = 7, 7
 SQUARE_SIZE = WIDTH//COLS  # how big the square is
 FPS = 60
@@ -62,8 +62,8 @@ class KubaGame:
         Set turn and winner to None, and set both points = 0"""
         # player 1 is white
         # player 2 is black
-        self.player1, self.colorA = ('PlayerA', 'W')
-        self.player2, self.colorB = ('PlayerB', 'B')
+        self.player1, self.colorA = ('Player1', 'W')
+        self.player2, self.colorB = ('Player2', 'B')
         self.board = [
             ["[W]", "[W]", "[ ]", "[ ]", "[ ]", "[B]", "[B]"],
             ["[W]", "[W]", "[ ]", "[R]", "[ ]", "[B]", "[B]"],
@@ -86,9 +86,11 @@ class KubaGame:
         """Method to set turn based on the player making the move"""
         if player is self.player1:              # if player1, then its player2 turn
             self.current_turn = self.player2
+            print("It's Player2's Turn")
             return
         if player is self.player2:
             self.current_turn = self.player1    # if player2, then its player1 turn
+            print("It's Player1's Turn")
             return
 
     def get_current_turn(self):
@@ -433,9 +435,9 @@ class KubaGame:
             self.other_board.append([])
             for col in range(COLS):
                 if self.board[row][col] == "[W]":
-                    self.other_board[row].append(Piece(row, col, WHITE, 'PlayerA'))
+                    self.other_board[row].append(Piece(row, col, WHITE, 'Player1'))
                 elif self.board[row][col] == "[B]":
-                    self.other_board[row].append(Piece(row, col, BLACK, 'PlayerB'))
+                    self.other_board[row].append(Piece(row, col, BLACK, 'Player2'))
                 elif self.board[row][col] == "[R]":
                     self.other_board[row].append(Piece(row, col, RED))
                 else:
@@ -447,9 +449,9 @@ class KubaGame:
             self.other_board.append([])
             for col in range(COLS):
                 if self.board[row][col] == "[W]":
-                    self.other_board[row].append(Piece(row, col, WHITE, 'PlayerA'))
+                    self.other_board[row].append(Piece(row, col, WHITE, 'Player1'))
                 elif self.board[row][col] == "[B]":
-                    self.other_board[row].append(Piece(row, col, BLACK, 'PlayerB'))
+                    self.other_board[row].append(Piece(row, col, BLACK, 'Player2'))
                 elif self.board[row][col] == "[R]":
                     self.other_board[row].append(Piece(row, col, RED))
                 else:
@@ -493,7 +495,7 @@ class KubaGame:
         score1 = font.render("White Score : " + str(self.player1_points), True, BLUE)
         score2 = font.render("Black Score : " + str(self.player2_points), True, BLUE)
         WIN.blit(score1, (x, y))
-        WIN.blit(score2, (x+620, y))
+        WIN.blit(score2, (x+420, y))
 
 
 def get_row_col_from_mouse(pos):
@@ -544,15 +546,3 @@ def main():
 
 
 main()
-
-
-"""
-game = KubaGame()
-game.make_move('PlayerA', (1, 0), 'R')
-game.print_board()
-game.make_move('PlayerB', (6, 1), 'F')
-game.print_board()
-game.make_move('PlayerA', (1, 6), 'L')
-game.make_move('PlayerA', (5, 6), 'L')
-game.print_board()
-"""
